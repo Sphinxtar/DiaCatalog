@@ -76,6 +76,7 @@ if os.path.isdir(path) != True:
 
 if len(sys.argv) < 2:
 	modlist()
+	print("Use 'all' for everything or 'system' for big list or 'system subsystem' for short list.")
 else:
 	if os.path.isdir(path) != True:
 		print("No such sub system, use with no arguments for a list or 'all' for everything.")
