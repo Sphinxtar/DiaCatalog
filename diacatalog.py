@@ -12,7 +12,7 @@ def modlist():
 		if not f.startswith("_"):
 			print("\t",f)
 
-def modlistsubsys(subsys):
+def modlistsub(subsys):
 	mpath = path+'/'+subsys
 	print("\n--- "+subsys)
 	mods = os.listdir(mpath)
@@ -31,7 +31,7 @@ def modlistsubsys(subsys):
 								print("\t",id[0])
 			claz.close()
 
-def modlistsub(subsys,mod):
+def modlistsubsys(subsys,mod):
 	mpath = path+'/'+subsys
 	print("\n--- "+subsys+" / "+mod)
 	m = str(mpath+'/'+mod+'.py')
@@ -77,14 +77,21 @@ if os.path.isdir(path) != True:
 if len(sys.argv) < 2:
 	modlist()
 else:
-	if os.path.isdir(path+'/'+sys.argv[1]) != True:
+	if os.path.isdir(path) != True:
 		print("No such sub system, use with no arguments for a list or 'all' for everything.")
 	elif sys.argv[1] == 'all':
 		modlistall()
 	elif len(sys.argv) == 2:
-		modlistsubsys(sys.argv[1])
+		if os.path.isdir(path+'/'+sys.argv[1]) != True:
+			print("No such directory as:",path+'/'+sys.argv[1])
+			quit()		
+		else:
+			modlistsub(sys.argv[1])
 	elif len(sys.argv) == 3:
-		modlistsub(sys.argv[1],sys.argv[2])
+		if os.path.isfile(path+'/'+sys.argv[1]+"/"+sys.argv[2]+".py") != True:
+			print("No such file as:",path+'/'+sys.argv[1]+"/"+sys.argv[2]+".py")
+			quit()
+		else:
+			modlistsubsys(sys.argv[1],sys.argv[2])
 print('')
-quit()
-
+quit()	
